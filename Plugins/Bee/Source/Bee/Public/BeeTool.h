@@ -31,4 +31,7 @@ class BEE_API UBeeToolLib :public UBlueprintFunctionLibrary
 		static FColor GetColorById(int id);
 	UFUNCTION(BlueprintCallable)
 		static FString ColorToString(const FColor&color);
+	UFUNCTION(BlueprintCallable)
+		static void SaveRenderTarget(UTextureRenderTarget2D* TexRT, 
+			const FString&path, const FString&filename);
 };

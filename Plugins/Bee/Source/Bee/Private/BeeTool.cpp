@@ -1,6 +1,8 @@
 #include "BeeTool.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "FileHelper.h"
+#include "Array.h"
+
 
 static uint8 lookup[768] = {41,35,190,132,225,108,214,174,82,144,73,241,241,187,233,
 						235,179,166,219,60,135,12,62,153,36,94,13,28,6,183,71,222,
@@ -122,11 +124,42 @@ void UBeeToolLib::WriteStringToFile(const FString&path, const FString&str)
 }
 
 FColor UBeeToolLib::GetColorById(int id) {
-	return FColor{ lookup[id * 3 + 2], lookup[id * 3 + 1], lookup[id * 3] };
+	return FColor{ lookup[id * 3 ], lookup[id * 3 + 1], lookup[id * 3 + 2] };
 }
 
 FString UBeeToolLib::ColorToString(const FColor&color) {
 	return "R:" + FString::FromInt(color.R) + " " +
 		"G:" + FString::FromInt(color.G) + " " +
 		"B:" + FString::FromInt(color.B);
+}
+
+void UBeeToolLib::SaveRenderTarget(UTextureRenderTarget2D* TexRT,
+	const FString&path, const FString&filename) {
+	//FRenderTarget* RenderTarget = TexRT->GameThread_GetRenderTargetResource();
+	//EPixelFormat Format = TexRT->GetFormat();
+	//TArray<uint8>RawData;
+
+	//int32 ImageBytes = CalculateImageBytes(TexRT->SizeX, TexRT->SizeY, 0, Format);
+	//RawData.AddUninitialized(ImageBytes);
+	//bool bReadSuccess = false;
+	//switch (Format)
+	//{
+	//	case PF_FloatRGBA:
+	//	{
+	//		TArray<FFloat16Color> FloatColors;
+	//		bReadSuccess = RenderTarget->ReadFloat16Pixels(FloatColors);
+	//		FMemory::Memcpy(RawData.GetData(), FloatColors.GetData(), ImageBytes);
+	//	}
+	//	break;
+	//	case PF_B8G8R8A8:
+	//		bReadSuccess = RenderTarget->ReadPixelsPtr((FColor*)RawData.GetData());
+	//		break;
+	//	case PF_A8:
+	//		bReadSuccess = RenderTarget->ReadFloat16Pixels
+	//}
+	//if (bReadSuccess == false)
+	//{
+	//	RawData.Empty();
+	//}
+	//return bReadSuccess;
 }
