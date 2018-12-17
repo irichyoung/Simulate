@@ -27,4 +27,8 @@ class BEE_API UBeeToolLib :public UBlueprintFunctionLibrary
 		static FVector ProjectWorldToCam(ASceneCapture2D*capture, const FVector&pos);
 	UFUNCTION(BlueprintCallable)
 		static void WriteStringToFile(const FString&path, const FString&str);
+	UFUNCTION(BlueprintCallable)
+		static FColor GetColorById(int id);
+	UFUNCTION(BlueprintCallable)
+		static FString ColorToString(const FColor&color);
 };
