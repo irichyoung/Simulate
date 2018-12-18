@@ -4,10 +4,10 @@ Sythesis the photorealistic images by using ue4 for training AI algorithm.
 Features:  
 ·A Couple Of Realitic Scene Made By Myself.  
 ·Pointcloud.  
-·Segment Pointcloud. 
-·Instance Segmentation.
-·Semantic Segmentation.  (TODO)  
-·Depth.  
+·Segment Pointcloud.   
+·Instance Segmentation.    
+·Semantic Segmentation.(TODO)  
+·Depth.    
 ·RGB.  
 ·Poses.  
 ·Convert Coordinates System Between Unreal Engine and Pcl(Eigen).  
