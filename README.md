@@ -2,7 +2,7 @@
 Sythesis the photorealistic images by using ue4 for training AI algorithm.
 (As Simple As Possible For AI Training.)  
 Features:  
-·Scene Capture Actor.  
+·A Couple Of Realitic Scene Made By Myself.  
 ·Pointcloud.  
 ·Segment Pointcloud.  
 ·Instance Segmentation.  
@@ -13,8 +13,9 @@ Features:
 ·Convert Coordinates System Between Unreal Engine and Pcl(Eigen).  
 ·Weather Controller.(TODO)  
 ·Simulate Soft Body.(TODO)  
-·Procedural Mesh.(TODO)  
-·Procedural Texture.(TODO)  
+·Procedural Random Mesh.(TODO)  
+·Procedural Random Texture.(TODO) 
+·Procedural Random Light.(TODO)  
 ·Realistic Camera Model.(TODO)  
 ·Generate realistic Text Fit in Scene.(Can be used for training OCR)  
 ·Project A Whole Picture Into The Scene.(Can be used for color a pointcloud)  
