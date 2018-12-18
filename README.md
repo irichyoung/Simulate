@@ -4,7 +4,7 @@ Sythesis the photorealistic images by using ue4 for training AI algorithm.
 Features:  
 ·Scene Capture Actor.  
 ·Pointcloud.  
-·Segment Pointcloud.  (TODO)  
+·Segment Pointcloud.  
 ·Instance Segmentation.  
 ·Semantic Segmentation.  (TODO)  
 ·Depth.  
