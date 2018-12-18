@@ -14,7 +14,7 @@ Features:
 ·Weather Controller.(TODO)  
 ·Simulate Soft Body.(TODO)  
 ·Procedural Random Mesh.(TODO)  
-·Procedural Random Texture.(TODO) 
+·Procedural Random Texture.(TODO)  
 ·Procedural Random Light.(TODO)  
 ·Realistic Camera Model.(TODO)  
 ·Generate realistic Text Fit in Scene.(Can be used for training OCR)  
