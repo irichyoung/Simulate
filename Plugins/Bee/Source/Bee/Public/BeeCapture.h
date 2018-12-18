@@ -2,7 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "Engine/SceneCapture2D.h"
+#include "Engine/SceneCapture.h"
 #include "Components/SceneCaptureComponent2D.h"
 #include "Components/StaticMeshComponent.h"
 #include "Engine/StaticMesh.h"
@@ -12,28 +12,28 @@
 #include "BeeCapture.generated.h"
 
 UCLASS()
-class BEE_API ABeeCapture : public ASceneCapture2D
+class BEE_API ABeeCapture : public ASceneCapture
 {
-	GENERATED_BODY()
+	GENERATED_UCLASS_BODY()
 public:
 	// Sets default values for this actor's properties
-	ABeeCapture();
+	//ABeeCapture();
 	/*UPROPERTY(Category = SceneCapture, BlueprintReadWrite, EditAnywhere)
 		ASceneCapture2D *capture;*/
 	/** Scene capture component. */
-	UPROPERTY(Category = DecalActor, VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(Category = Capturer, EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
 		class USceneCaptureComponent2D* DepthCap;
 	/** Scene capture component. */
-	UPROPERTY(Category = DecalActor, VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(Category = Capturer, EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
 		class USceneCaptureComponent2D* InstanceSegCap;
 	/** Scene capture component. */
-	UPROPERTY(Category = DecalActor, VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(Category = Capturer, EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
 		class USceneCaptureComponent2D* RGBCap;
 	/** Scene capture component. */
-	UPROPERTY(Category = DecalActor, VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(Category = Capturer, EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
 		class USceneCaptureComponent2D* PointCloudCap;
 	/** Scene capture component. */
-	UPROPERTY(Category = DecalActor, VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(Category = Capturer, EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
 		class USceneCaptureComponent2D* SemanticSegCap;
 protected:
 	// Called when the game starts or when spawned

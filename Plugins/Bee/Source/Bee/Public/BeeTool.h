@@ -22,9 +22,9 @@ class BEE_API UBeeToolLib :public UBlueprintFunctionLibrary
 	UFUNCTION(BlueprintCallable)
 		static FVector RandomPointInBoundingBoxes(const TArray<UBoxComponent*>&boxes);
 	UFUNCTION(BlueprintCallable)
-		static FVector2D ProjectWorldToScreen(ASceneCapture2D*capture, const FVector&pos);
+		static FVector2D ProjectWorldToScreen(USceneCaptureComponent2D*capture, const FVector&pos);
 	UFUNCTION(BlueprintCallable)
-		static FVector ProjectWorldToCam(ASceneCapture2D*capture, const FVector&pos);
+		static FVector ProjectWorldToCam(USceneCaptureComponent2D*capture, const FVector&pos);
 	UFUNCTION(BlueprintCallable)
 		static void WriteStringToFile(const FString&path, const FString&str);
 	UFUNCTION(BlueprintCallable)

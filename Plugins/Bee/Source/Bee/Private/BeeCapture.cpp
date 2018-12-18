@@ -16,10 +16,21 @@ DEFINE_LOG_CATEGORY_STATIC(LogImageUtils, Log, All);
 #define LOCTEXT_NAMESPACE "ImageUtils"
 
 // Sets default values
-ABeeCapture::ABeeCapture()
+ABeeCapture::ABeeCapture(const FObjectInitializer& ObjectInitializer)
 {
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+	DepthCap = CreateDefaultSubobject<USceneCaptureComponent2D>(TEXT("BeeDepthCapturer"));
+	RGBCap = CreateDefaultSubobject<USceneCaptureComponent2D>(TEXT("BeeRGBCapturer"));
+	InstanceSegCap = CreateDefaultSubobject<USceneCaptureComponent2D>(TEXT("BeeInstanceSegCapturer"));
+	SemanticSegCap = CreateDefaultSubobject<USceneCaptureComponent2D>(TEXT("BeeSemanticSegCapturer"));
+	PointCloudCap = CreateDefaultSubobject<USceneCaptureComponent2D>(TEXT("BeePointCloudCapturer"));
+
+	DepthCap->AttachTo(GetMeshComp());
+	RGBCap->AttachTo(GetMeshComp());
+	InstanceSegCap->AttachTo(GetMeshComp());
+	SemanticSegCap->AttachTo(GetMeshComp());
+	PointCloudCap->AttachTo(GetMeshComp());
 
 }
 
@@ -116,68 +127,9 @@ void ABeeCapture::SemanticSegToFile(UTextureRenderTarget2D* TextureRenderTarget,
 }
 
 void ABeeCapture::DepthToFile(UTextureRenderTarget2D* TextureRenderTarget, const FString&path, const FString&filename) {
-	//FString TotalFileName = FPaths::Combine(*path, *filename);
-	//FText PathError;
-	//FPaths::ValidatePath(TotalFileName, &PathError);
-
-
-	//if (!TextureRenderTarget)
-	//{
-	//	FMessageLog("Blueprint").Warning(LOCTEXT("ExportRenderTarget_InvalidTextureRenderTarget", "ExportRenderTarget: TextureRenderTarget must be non-null."));
-	//}
-	//else if (!TextureRenderTarget->Resource)
-	//{
-	//	FMessageLog("Blueprint").Warning(LOCTEXT("ExportRenderTarget_ReleasedTextureRenderTarget", "ExportRenderTarget: render target has been released."));
-	//}
-	//else if (!PathError.IsEmpty())
-	//{
-	//	FMessageLog("Blueprint").Warning(FText::Format(LOCTEXT("ExportRenderTarget_InvalidFilePath", "ExportRenderTarget: Invalid file path provided: '{0}'"), PathError));
-	//}
-	//else if (filename.IsEmpty())
-	//{
-	//	FMessageLog("Blueprint").Warning(LOCTEXT("ExportRenderTarget_InvalidFileName", "ExportRenderTarget: FileName must be non-empty."));
-	//}
-	//else
-	//{
-	//	FArchive* Ar = IFileManager::Get().CreateFileWriter(*TotalFileName);
-
-	//	if (Ar)
-	//	{
-	//		FBufferArchive Buffer;
-
-	//		bool bSuccess = false;
-	//		if (TextureRenderTarget->GetFormat() == PF_B8G8R8A8)
-	//		{
-	//			check(TextureRenderTarget != nullptr);
-	//			FRenderTarget* RenderTarget = TextureRenderTarget->GameThread_GetRenderTargetResource();
-	//			FIntPoint Size = RenderTarget->GetSizeXY();
-
-	//			TArray<uint8> RawData;
-	//			bSuccess = GetRawData(TextureRenderTarget, RawData);
-
-	//			IImageWrapperModule& ImageWrapperModule = FModuleManager::Get().LoadModuleChecked<IImageWrapperModule>(TEXT("ImageWrapper"));
-
-	//			TSharedPtr<IImageWrapper> PNGImageWrapper = ImageWrapperModule.CreateImageWrapper(EImageFormat::PNG);
-
-	//			PNGImageWrapper->SetRaw(RawData.GetData(), RawData.GetAllocatedSize(), Size.X, Size.Y, ERGBFormat::BGRA, 8);
-
-	//			const TArray<uint8>& PNGData = PNGImageWrapper->GetCompressed(100);
-
-	//			Ar.Serialize((void*)PNGData.GetData(), PNGData.GetAllocatedSize());
-	//		}
-
-	//		if (bSuccess)
-	//		{
-	//			Ar->Serialize(const_cast<uint8*>(Buffer.GetData()), Buffer.Num());
-	//		}
-
-	//		delete Ar;
-	//	}
-	//	else
-	//	{
-	//		FMessageLog("Blueprint").Warning(LOCTEXT("ExportRenderTarget_FileWriterFailedToCreate", "ExportRenderTarget: FileWrite failed to create."));
-	//	}
-	//}
+	if (DepthCap->TextureTarget) {
+		UKismetRenderingLibrary::ExportRenderTarget(GetWorld(), TextureRenderTarget, path, filename);
+	}
 }
 
 void ABeeCapture::TransfromToFile(const FTransform&transform, const FString&path) {

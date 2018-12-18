@@ -58,15 +58,15 @@ FString UBeeToolLib::RandomString(const int count)
 	return tmp;
 }
 
-FVector2D UBeeToolLib::ProjectWorldToScreen(ASceneCapture2D *capture, const FVector&pos)
+FVector2D UBeeToolLib::ProjectWorldToScreen(USceneCaptureComponent2D *capture, const FVector&pos)
 {
 	check(capture);
 	FVector2D result;
-	if (capture->GetCaptureComponent2D()->TextureTarget) {
-		FIntPoint rect(capture->GetCaptureComponent2D()->TextureTarget->GetSurfaceWidth(),
-			capture->GetCaptureComponent2D()->TextureTarget->GetSurfaceHeight());
+	if (capture->TextureTarget) {
+		FIntPoint rect(capture->TextureTarget->GetSurfaceWidth(),
+			capture->TextureTarget->GetSurfaceHeight());
 		FMatrix ProjectionMatrix;
-		float FOV = capture->GetCaptureComponent2D()->FOVAngle / 360 * PI;
+		float FOV = capture->FOVAngle / 360 * PI;
 		float XAxisMultiplier = 1.f;
 		float YAxisMultiplier = rect.X / rect.Y;
 		if ((int32)ERHIZBuffer::IsInverted)
@@ -80,27 +80,27 @@ FVector2D UBeeToolLib::ProjectWorldToScreen(ASceneCapture2D *capture, const FVec
 				GNearClippingPlane
 			);
 		}
-		FTransform transform = capture->GetCaptureComponent2D()->GetComponentTransform();
+		FTransform transform = capture->GetComponentTransform();
 		FMatrix RotationMatrix = transform.ToInverseMatrixWithScale() * FMatrix(
 			FPlane(0, 0, 1, 0),
 			FPlane(1, 0, 0, 0),
 			FPlane(0, 1, 0, 0),
 			FPlane(0, 0, 0, 1));
 		FMatrix intrisicMat = RotationMatrix * ProjectionMatrix;
-		FSceneView::ProjectWorldToScreen(pos, FIntRect(FIntPoint(0, 0), rect), 
+		FSceneView::ProjectWorldToScreen(pos, FIntRect(FIntPoint(0, 0), rect),
 			intrisicMat, result);
 	}
 	return result;
 }
 
-FVector UBeeToolLib::ProjectWorldToCam(ASceneCapture2D *capture, const FVector&pos)
+FVector UBeeToolLib::ProjectWorldToCam(USceneCaptureComponent2D *capture, const FVector&pos)
 {
 	check(capture);
 	FVector result;
-	if (capture->GetCaptureComponent2D()->TextureTarget) {
-		FIntPoint rect(capture->GetCaptureComponent2D()->TextureTarget->GetSurfaceWidth(),
-			capture->GetCaptureComponent2D()->TextureTarget->GetSurfaceHeight());
-		FTransform transform = capture->GetCaptureComponent2D()->GetComponentTransform();
+	if (capture->TextureTarget) {
+		FIntPoint rect(capture->TextureTarget->GetSurfaceWidth(),
+			capture->TextureTarget->GetSurfaceHeight());
+		FTransform transform = capture->GetComponentTransform();
 		FMatrix RotationMatrix = transform.ToInverseMatrixWithScale() * FMatrix(
 			FPlane(0, 0, 1, 0),
 			FPlane(1, 0, 0, 0),
