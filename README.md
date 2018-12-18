@@ -4,21 +4,21 @@ Sythesis the photorealistic images by using ue4 for training AI algorithm.
 Features:  
 ·Scene Capture Actor.  
 ·Pointcloud.  
-·Segment Pointcloud.  (TODO)
+·Segment Pointcloud.  (TODO)  
 ·Instance Segmentation.  
-·Semantic Segmentation.  (TODO)
+·Semantic Segmentation.  (TODO)  
 ·Depth.  
 ·RGB.  
-·Poses.
+·Poses.  
 ·Convert Coordinates System Between Unreal Engine and Pcl(Eigen).  
-·Weather Controller.(TODO)
-·Simulate Soft Body.(TODO)
-·Procedural Mesh.(TODO)
-·Procedural Texture.(TODO)
-·Realistic Camera Model.(TODO)
-·Generate realistic Text Fit in Scene.(Can be used for training OCR)
-·Project A Whole Picture Into The Scene.(Can be used for color a pointcloud)
-·3D Shape Matching.(Used for measure the difference of mesh)(TODO) 
+·Weather Controller.(TODO)  
+·Simulate Soft Body.(TODO)  
+·Procedural Mesh.(TODO)  
+·Procedural Texture.(TODO)  
+·Realistic Camera Model.(TODO)  
+·Generate realistic Text Fit in Scene.(Can be used for training OCR)  
+·Project A Whole Picture Into The Scene.(Can be used for color a pointcloud)  
+·3D Shape Matching.(Used for measure the difference of mesh)(TODO)   
 
 (Unreal Engine adopted a intrinsic ZYX euler rotation and it's a left-hand coordinate system.Pcl is intrinsic XYZ and right-hand.)  
 (Generate a pointcloud map and a segment map simultaneously so we can form a pcd file with the object segmented.)  
