@@ -4,6 +4,7 @@
 #include "GameFramework/Actor.h"
 #include "Engine/SceneCapture.h"
 #include "Components/SceneCaptureComponent2D.h"
+#include "Components/InstancedStaticMeshComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "Engine/StaticMesh.h"
 #include "Engine/TextureRenderTarget2D.h"
@@ -59,5 +60,10 @@ public:
 			const FString&path, const FString&filename);
 	UFUNCTION(BlueprintCallable)
 		void TransfromToFile(const FTransform&t, const FString&path);
-
+	UFUNCTION(BlueprintCallable)
+		void UpdatePointCloudFromRT(UInstancedStaticMeshComponent*inst,float scale);
+	//UFUNCTION(BlueprintCallable)
+	//	void ABeeCapture::ExtractColorFromRT(TArray<FColor>poses) {};
+private:
+	TArray<FVector>poses;
 };

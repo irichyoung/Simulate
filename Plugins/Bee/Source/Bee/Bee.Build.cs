@@ -25,7 +25,12 @@ public class Bee : ModuleRules
 		PublicDependencyModuleNames.AddRange(
 			new string[]
 			{
-				"Core",
+					"Core",
+					"CoreUObject",
+					"Engine",
+					"RenderCore",
+					"ShaderCore",
+					"RHI"
 				// ... add other public dependencies that you statically link with here ...
 			}
 			);
@@ -34,10 +39,12 @@ public class Bee : ModuleRules
 		PrivateDependencyModuleNames.AddRange(
 			new string[]
 			{
-				"CoreUObject",
-				"Engine",
-				"Slate",
-				"SlateCore",
+					"Core",
+					"CoreUObject",
+					"Engine",
+					"RenderCore",
+					"ShaderCore",
+					"RHI"
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);

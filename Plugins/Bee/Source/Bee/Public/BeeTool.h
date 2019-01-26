@@ -34,4 +34,6 @@ class BEE_API UBeeToolLib :public UBlueprintFunctionLibrary
 	UFUNCTION(BlueprintCallable)
 		static void SaveRenderTarget(UTextureRenderTarget2D* TexRT, 
 			const FString&path, const FString&filename);
+	//UFUNCTION(BlueprintCallable)
+	//	static void SpawnPointCloud(TArray<AActor*>&points, const TArray<FVector>&poses,float scale);
 };

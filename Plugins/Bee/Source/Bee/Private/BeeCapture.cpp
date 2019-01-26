@@ -5,6 +5,7 @@
 #include "Kismet/KismetRenderingLibrary.h"
 #include "Serialization/BufferArchive.h"
 #include "EngineGlobals.h"
+#include "Engine/Engine.h"
 #include "Internationalization.h"
 #include "Logging/MessageLog.h"
 #include "ImageUtils.h"
@@ -18,6 +19,8 @@ DEFINE_LOG_CATEGORY_STATIC(LogImageUtils, Log, All);
 // Sets default values
 ABeeCapture::ABeeCapture(const FObjectInitializer& ObjectInitializer)
 {
+
+	//GEngine->AddOnScreenDebugMessage(0, 2.f, FColor::Green, "ggg");
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 	DepthCap = CreateDefaultSubobject<USceneCaptureComponent2D>(TEXT("BeeDepthCapturer"));
@@ -38,7 +41,9 @@ ABeeCapture::ABeeCapture(const FObjectInitializer& ObjectInitializer)
 void ABeeCapture::BeginPlay()
 {
 	Super::BeginPlay();
-
+	for (int i = 0; i < PointCloudCap->TextureTarget->SizeX * PointCloudCap->TextureTarget->SizeY; i++) {
+		poses.Add(FVector());
+	}
 }
 
 // Called every frame
@@ -139,4 +144,35 @@ void ABeeCapture::TransfromToFile(const FTransform&transform, const FString&path
 	FVector scale = transform.GetScale3D();
 	t.Append(FString::Printf(TEXT("%f %f %f %f %f %f %f %f %f\n"), loc.X, loc.Y, loc.Z, rot.X, rot.Y, rot.Z, scale.X, scale.Y, scale.Z));
 	FFileHelper::SaveStringToFile(t, path.GetCharArray().GetData());
+}
+
+void ABeeCapture::UpdatePointCloudFromRT(UInstancedStaticMeshComponent*inst,float scale) {
+	if (PointCloudCap->TextureTarget) {
+		UTextureRenderTarget2D *TexRT = PointCloudCap->TextureTarget;
+		TArray<FFloat16Color> RawData;
+
+		FRenderTarget* RenderTarget = TexRT->GameThread_GetRenderTargetResource();
+
+		uint32 SizeX = TexRT->SizeX;
+		uint32 SizeY = TexRT->SizeY;
+
+		RawData.AddZeroed(SizeX * SizeY);
+		if (!RenderTarget->ReadFloat16Pixels(RawData)) {
+			UE_LOG(LogTemp, Warning, TEXT("Can not writePixel"));
+		}
+
+		for (int32 i = 0; i < poses.Num(); i++) {
+			FInstancedStaticMeshInstanceData& InstanceData = inst->PerInstanceSMData[i];
+			FVector newpos;
+			newpos.X = RawData[i].R.GetFloat() * 2 * scale - scale + GetActorLocation().X;
+			newpos.Y = RawData[i].G.GetFloat() * 2 * scale - scale + GetActorLocation().Y;
+			newpos.Z = RawData[i].B.GetFloat() * 2 * scale - scale + GetActorLocation().Z;
+			FTransform NewInstanceTransform = FTransform(newpos);
+			FTransform LocalTransform = NewInstanceTransform.GetRelativeTransform(inst->GetComponentTransform());
+			InstanceData.Transform = LocalTransform.ToMatrixWithScale();
+		}
+		inst->InstanceUpdateCmdBuffer.NumEdits++;
+
+		inst->MarkRenderStateDirty();
+	}
 }
