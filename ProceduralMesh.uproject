@@ -10,14 +10,5 @@
 			"LoadingPhase": "Default"
 		}
 	],
-	"Plugins": [
-		{
-			"Name": "HoudiniEngine",
-			"Enabled": false
-		},
-		{
-			"Name": "PointCloudPlugin",
-			"Enabled": true
-		}
-	]
+	"Plugins": []
 }

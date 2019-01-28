@@ -146,7 +146,7 @@ void ABeeCapture::TransfromToFile(const FTransform&transform, const FString&path
 	FFileHelper::SaveStringToFile(t, path.GetCharArray().GetData());
 }
 
-void ABeeCapture::UpdatePointCloudFromRT(UInstancedStaticMeshComponent*inst,float scale) {
+void ABeeCapture::UpdatePointCloudFromRT(UInstancedStaticMeshComponent*inst,float dist,float pointscale) {
 	if (PointCloudCap->TextureTarget) {
 		UTextureRenderTarget2D *TexRT = PointCloudCap->TextureTarget;
 		TArray<FFloat16Color> RawData;
@@ -164,15 +164,14 @@ void ABeeCapture::UpdatePointCloudFromRT(UInstancedStaticMeshComponent*inst,floa
 		for (int32 i = 0; i < poses.Num(); i++) {
 			FInstancedStaticMeshInstanceData& InstanceData = inst->PerInstanceSMData[i];
 			FVector newpos;
-			newpos.X = RawData[i].R.GetFloat() * 2 * scale - scale + GetActorLocation().X;
-			newpos.Y = RawData[i].G.GetFloat() * 2 * scale - scale + GetActorLocation().Y;
-			newpos.Z = RawData[i].B.GetFloat() * 2 * scale - scale + GetActorLocation().Z;
-			FTransform NewInstanceTransform = FTransform(newpos);
+			newpos.X = RawData[i].R.GetFloat() * 2 * dist - dist + GetActorLocation().X;
+			newpos.Y = RawData[i].G.GetFloat() * 2 * dist - dist + GetActorLocation().Y;
+			newpos.Z = RawData[i].B.GetFloat() * 2 * dist - dist + GetActorLocation().Z;
+			FTransform NewInstanceTransform = FTransform(FQuat::Identity,newpos,FVector(pointscale));
 			FTransform LocalTransform = NewInstanceTransform.GetRelativeTransform(inst->GetComponentTransform());
 			InstanceData.Transform = LocalTransform.ToMatrixWithScale();
 		}
 		inst->InstanceUpdateCmdBuffer.NumEdits++;
-
 		inst->MarkRenderStateDirty();
 	}
 }

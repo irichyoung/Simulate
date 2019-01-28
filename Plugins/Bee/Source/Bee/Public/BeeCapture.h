@@ -61,7 +61,7 @@ public:
 	UFUNCTION(BlueprintCallable)
 		void TransfromToFile(const FTransform&t, const FString&path);
 	UFUNCTION(BlueprintCallable)
-		void UpdatePointCloudFromRT(UInstancedStaticMeshComponent*inst,float scale);
+		void UpdatePointCloudFromRT(UInstancedStaticMeshComponent*inst,float distance,float pointscale);
 	//UFUNCTION(BlueprintCallable)
 	//	void ABeeCapture::ExtractColorFromRT(TArray<FColor>poses) {};
 private:

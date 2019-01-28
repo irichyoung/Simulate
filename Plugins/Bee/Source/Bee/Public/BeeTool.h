@@ -7,6 +7,8 @@
 #include "Engine/SceneCapture2D.h"
 #include "Components/SceneCaptureComponent2D.h"
 #include "Components/BoxComponent.h"
+#include "Components/InstancedStaticMeshComponent.h"
+#include "Components/StaticMeshComponent.h"
 #include "Engine/TextureRenderTarget2D.h"
 #include "Box.h"
 #include "Array.h"
@@ -34,6 +36,7 @@ class BEE_API UBeeToolLib :public UBlueprintFunctionLibrary
 	UFUNCTION(BlueprintCallable)
 		static void SaveRenderTarget(UTextureRenderTarget2D* TexRT, 
 			const FString&path, const FString&filename);
-	//UFUNCTION(BlueprintCallable)
-	//	static void SpawnPointCloud(TArray<AActor*>&points, const TArray<FVector>&poses,float scale);
+	UFUNCTION(BlueprintCallable)
+		static void InitInstancedStaticMesh(UInstancedStaticMeshComponent*comp,int num);
+
 };

@@ -173,10 +173,9 @@ bool operator<(const FVector&l, const FVector&r) {
 	if (l.X < r.X && l.Y < r.Y && l.Z < r.Z)return true;
 	else return false;
 }
-//
-//void UBeeToolLib::SpawnPointCloud(TArray<AActor*>&points, const TArray<FVector*>&poses, float scale) {
-//	//for (int i = 0; i < poses.Num(); i++) {
-//	//	if (poses[i] > FVector(.99f, .99f, .99f))
-//	//		points[i].SetActorLocation(poses[i]);
-//	//}
-//}
+
+void UBeeToolLib::InitInstancedStaticMesh(UInstancedStaticMeshComponent*inst, int num) {
+	for (int i = 0; i < num; i++) {
+		inst->AddInstance(FTransform());
+	}
+}
