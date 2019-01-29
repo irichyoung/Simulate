@@ -36,6 +36,8 @@ public:
 	/** Scene capture component. */
 	UPROPERTY(Category = Capturer, EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
 		class USceneCaptureComponent2D* SemanticSegCap;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		bool HideInGame;
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

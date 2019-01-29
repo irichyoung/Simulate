@@ -50,7 +50,9 @@ void ABeeCapture::BeginPlay()
 void ABeeCapture::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
+	if (HideInGame)
+		GetMeshComp()->bHiddenInGame = true;
+	else GetMeshComp()->bHiddenInGame = false;
 }
 
 void ABeeCapture::PostActorCreated() {
