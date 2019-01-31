@@ -1,10 +1,22 @@
 #include "BeeLocalPlayer.h"
 #include "SceneView.h"
+#include "Kismet/GameplayStatics.h"
 #include "Engine/World.h"
 #include "Camera/CameraTypes.h"
 #include "SceneViewExtension.h"
+#include "Engine/Level.h"
 #include "Components/PrimitiveComponent.h"
 #include "GameFramework/PlayerController.h"
+
+UBeeLocalPlayer::UBeeLocalPlayer(FVTableHelper& Helper) : ULocalPlayer(Helper) {
+}
+/*We can set the visibility of actors via playercontroller::updateshowonlyactors.*/
+void UBeeLocalPlayer::UpdateShowOnlyActors(TArray<AActor*>&actors) {
+	ShowOnlyActors.Empty();
+	for (auto &x : actors) {
+		ShowOnlyActors.Add(x);
+	}
+}
 
 static void SetupMonoParameters(FSceneViewFamily& ViewFamily, const FSceneView& MonoView)
 {
@@ -41,7 +53,6 @@ FSceneView* UBeeLocalPlayer::CalcSceneView(class FSceneViewFamily* ViewFamily,
 	EStereoscopicPass StereoPass)
 {
 	FSceneViewInitOptions ViewInitOptions;
-
 	if (!CalcSceneViewInitOptions(ViewInitOptions, Viewport, ViewDrawer, StereoPass))
 	{
 		return nullptr;
@@ -59,6 +70,7 @@ FSceneView* UBeeLocalPlayer::CalcSceneView(class FSceneViewFamily* ViewFamily,
 
 	// Fill out the rest of the view init options
 	ViewInitOptions.ViewFamily = ViewFamily;
+
 
 	if (!PlayerController->bRenderPrimitiveComponents)
 	{

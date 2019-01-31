@@ -1,0 +1,4 @@
+
+# BeeCapturePod
+
+CapturePod is actor where the capture place on.And the pod has to move every tick(or call).The movement can be trajectory-base or Discrete point.

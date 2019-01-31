@@ -1,0 +1,11 @@
+
+# Spawner
+
+Spawner is an actor that spawn actors with various mesh/material in several specific spots.
+TODO:Provide the methods to change the actors' appearence a little every spawn time.(still in reasonible range)
+Before using with it,you should make sure you fill with those parameters:
+ *  Mesh : the actor classes that own the mesh.
+ *  SpawnSpot : the actors that specify the spawnSpots.
+ *  Controller : the controller can assign custom stencil values for this spawner.
+ *  VecParamNum : the Number of vecotr Material Parameter that define the change of material(BaseColor,EmissiveColor,etc),up to 10.
+ *  ScalarNum : the Number of scalar Material Parameter that define the change of material(Metalic,specular,roughness,etc),up to 10.
