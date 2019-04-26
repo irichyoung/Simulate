@@ -1,6 +1,12 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "JsonGlobals.h"
+#include "Serialization/JsonTypes.h"
+#include "Dom/JsonValue.h"
+#include "JsonObject.h"
+#include "JsonWriter.h"
+#include "JsonSerializer.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
 #include "SceneView.h"
 #include "Engine/Scene.h"
@@ -12,7 +18,39 @@
 #include "Engine/TextureRenderTarget2D.h"
 #include "Box.h"
 #include "Array.h"
+#include "SharedPointer.h"
 #include "BeeTool.generated.h"
+
+USTRUCT(BlueprintType)
+struct FObj {
+	GENERATED_BODY()
+
+	UPROPERTY(BlueprintReadWrite)
+		FString Pos;
+
+	UPROPERTY(BlueprintReadWrite)
+		FString color;
+};
+
+USTRUCT(BlueprintType)
+struct FGroundTruth {
+	GENERATED_BODY()
+
+	UPROPERTY(BlueprintReadWrite)
+		FString Cam;
+
+	UPROPERTY(BlueprintReadWrite)
+		FString RGB;
+
+	UPROPERTY(BlueprintReadWrite)
+		FString Depth;
+
+	UPROPERTY(BlueprintReadWrite)
+		FString Segmetation;
+
+	UPROPERTY(BlueprintReadWrite)
+		TArray<FObj> objs;
+};
 
 UCLASS()
 class BEE_API UBeeToolLib :public UBlueprintFunctionLibrary
@@ -29,6 +67,8 @@ class BEE_API UBeeToolLib :public UBlueprintFunctionLibrary
 		static FVector ProjectWorldToCam(USceneCaptureComponent2D*capture, const FVector&pos);
 	UFUNCTION(BlueprintCallable)
 		static void WriteStringToFile(const FString&path, const FString&str);
+	UFUNCTION(BlueprintCallable)
+		static void WriteGroundTruthToFile(const FString&path, const FGroundTruth&groundTruth);
 	UFUNCTION(BlueprintCallable)
 		static FColor GetColorById(int id);
 	UFUNCTION(BlueprintCallable)

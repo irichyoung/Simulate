@@ -44,7 +44,9 @@ public class Bee : ModuleRules
 					"Engine",
 					"RenderCore",
 					"ShaderCore",
-					"RHI"
+					"RHI",
+					"Json",
+					"JsonUtilities"
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);

@@ -123,6 +123,28 @@ void UBeeToolLib::WriteStringToFile(const FString&path, const FString&str)
 	FFileHelper::SaveStringToFile(str, path.GetCharArray().GetData());
 }
 
+void UBeeToolLib::WriteGroundTruthToFile(const FString&path, const FGroundTruth&groundTruth)
+{
+	TSharedPtr<FJsonObject> JsonObject = MakeShareable(new FJsonObject());
+	JsonObject->SetStringField("RGB", groundTruth.RGB);
+	JsonObject->SetStringField("Depth", groundTruth.Depth);
+	JsonObject->SetStringField("CamPos", groundTruth.Cam);
+	TArray< TSharedPtr<FJsonValue> > ObjArray;
+
+	for (int i = 0; i < groundTruth.objs.Num(); i++) {
+		TSharedPtr< FJsonObject > JsonObj = MakeShareable(new FJsonObject);
+		JsonObj->SetStringField("Position Of Object", groundTruth.objs[i].Pos);
+		JsonObj->SetStringField("Color Of Object", groundTruth.objs[i].color);
+		TSharedRef< FJsonValueObject > JsonValue = MakeShareable(new FJsonValueObject(JsonObj));
+		ObjArray.Add(JsonValue);
+	}
+	JsonObject->SetArrayField("Objects", ObjArray);
+	FString outputStr;
+	TSharedRef< TJsonWriter<> > Writer = TJsonWriterFactory<>::Create(&outputStr);
+	FJsonSerializer::Serialize(JsonObject.ToSharedRef(), Writer);
+	WriteStringToFile(path, outputStr);
+}
+
 FColor UBeeToolLib::GetColorById(int id) {
 	return FColor{ lookup[id * 3 ], lookup[id * 3 + 1], lookup[id * 3 + 2] };
 }
